@@ -1,0 +1,37 @@
+{% extends "employee_register/base.html" %}
+
+{% block content %}
+<table class="table table table-borderless">
+    <thead class="border-bottom font-weight-bold">
+        <tr>
+            <td>Full Name</td>
+            <td>Mobile</td>
+            <td>Position</td>
+            <td><a href="{% url 'employee_form'%}"><button type="submit" value="Submit" class="btn btn-success"><i class="fa fa-database mr-1" aria-hidden="true"></i>+ Add New</button></a>   </td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for employee in data %}
+        <tr>
+            <td>{{employee.fullname}}</td>
+            <td>{{employee.mobile}}</td>
+            <td>
+                {%for pos in position %}
+                    {% if employee.position_id == pos.id %}
+                        {{pos.title}}
+                    {% endif %} 
+                {% endfor %}
+            </td>
+            <td>
+                <a href="{% url 'details' employee.id %}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                </a>
+                <a href="{% url 'delete' employee.id %}"><i class="fa fa-trash" aria-hidden="true"></i>
+                </i>
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    
+</table>
+{% endblock content %}
